@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:SmartHome.ViewModels"
+             x:Class="SmartHome.Views.MainPage">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Add Room" Command="{Binding AddRoomCommand}" />
+    </ContentPage.ToolbarItems>
+
+    <Grid>
+        <Label Text="SmartHome"
+               FontSize="24"
+               FontAttributes="Bold"
+               BackgroundColor ="#5D8AA8"
+               TextColor ="White"
+               HorizontalOptions="FillAndExpand"
+               HorizontalTextAlignment="Center"
+               Padding="10,20" />
+
+        <StackLayout Margin="0,60,0,0">
+            <Label Text="Welcome to SmartHome!"
+                   TextColor="White"
+                   VerticalOptions="CenterAndExpand"
+                   HorizontalOptions="CenterAndExpand"
+                   IsVisible="{Binding IsWelcomeVisible}" />
+
+            <CollectionView ItemsSource="{Binding Rooms}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Frame BackgroundColor="{Binding IsLightOn, Converter={StaticResource LightStateToColorConverter}}"
+                                Padding="10" Margin="5" HeightRequest="100" WidthRequest="300">
+
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding ToggleLightCommand}" />
+                            </Frame.GestureRecognizers>
+
+                            <Label Text="Klikni na okvir za promjenu svjetla" 
+                              VerticalOptions="CenterAndExpand" 
+                              HorizontalOptions="CenterAndExpand" />
+                        </Frame>
+
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </StackLayout>
+    </Grid>
+    
+</ContentPage>

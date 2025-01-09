@@ -1,0 +1,13 @@
+{
+    "profiles": {
+      "Android": {
+        "commandName": "Project",
+        "targetFramework": "net9.0-android35.0",
+        "device": "emulator",
+        "environmentVariables": {
+          "ASPNETCORE_ENVIRONMENT": "Development"
+        }
+      }
+    }
+  }
+  
