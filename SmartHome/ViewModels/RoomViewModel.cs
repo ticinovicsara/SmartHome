@@ -11,7 +11,6 @@ namespace SmartHome.ViewModels
         public event PropertyChangedEventHandler PropertyChanged;
 
         private ObservableCollection<Room> rooms;
-
         public ObservableCollection<Room> Rooms
         {
             get => rooms;
@@ -22,29 +21,50 @@ namespace SmartHome.ViewModels
             }
         }
 
+        private bool isWelcomeVisible;
+        public bool IsWelcomeVisible
+        {
+            get => isWelcomeVisible;
+            set
+            {
+                if (isWelcomeVisible != value)
+                {
+                    isWelcomeVisible = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        public ICommand AddRoomCommand { get; }
+        public ICommand ToggleLightCommand { get; }
+
         public RoomViewModel()
         {
             Rooms = new ObservableCollection<Room>();
             AddRoomCommand = new Command(AddRoom);
-            IToggleLightCommand = new Command<Room>(ToggleLight);
+            ToggleLightCommand = new Command<Room>(ToggleLight);
         }
 
-
-        public ICommand IToggleLightCommand { get; }
-        public ICommand AddRoomCommand { get; }
-
-        private void ToggleLight(Room room)
+        private async void AddRoom()
         {
-            if (room != null)
+            string roomName = await Application.Current.MainPage.DisplayPromptAsync("Add Room", "Enter room name:");
+
+            if (!string.IsNullOrWhiteSpace(roomName))
             {
-                room.IsLightOn = !room.IsLightOn;  // Toggle the light state
-                OnPropertyChanged(nameof(Rooms));   // Notify the UI for the update
+                Rooms.Add(new Room(roomName));
+            }
+            else
+            {
+                await Application.Current.MainPage.DisplayAlert("Error", "Room name cannot be empty.", "OK");
             }
         }
 
-        private void AddRoom()
+        public void ToggleLight(Room room)
         {
-            Rooms.Add(new Room("New Room"));
+            if (room != null)
+            {
+                room.IsLightOn = !room.IsLightOn;
+            }
         }
 
         public virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)

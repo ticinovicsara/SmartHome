@@ -1,8 +1,4 @@
-﻿using System;
-using Microsoft.Maui.Controls;
-using Microsoft.Maui.Graphics;
-
-namespace SmartHome.ViewModels
+﻿namespace SmartHome.ViewModels
 {
     public class LightStateToColorConverter : IValueConverter
     {
@@ -10,10 +6,11 @@ namespace SmartHome.ViewModels
         {
             if (value is bool isLightOn)
             {
-                return isLightOn ? Color.FromArgb("#FFD700") : Color.FromArgb("#DBD7D2") ;
+                return isLightOn ? Color.FromArgb("#FBEC5D") : Color.FromArgb("#708090");
             }
-            return Color.FromArgb("#DBD7D2");
+            return Color.FromArgb("#708090");
         }
+
 
         public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {

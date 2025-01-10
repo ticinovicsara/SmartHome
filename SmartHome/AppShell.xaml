@@ -9,16 +9,8 @@
     Shell.BackgroundColor="#72A0C1">
 
     <ShellContent
-        Title="Home"
+        Title="SmartHome"
         ContentTemplate="{DataTemplate local:MainPage}"
         Route="MainPage" />
-
-    <Shell.ToolbarItems>
-        <ToolbarItem>
-            <ToolbarItem.Command>
-                
-            </ToolbarItem.Command>
-        </ToolbarItem>
-    </Shell.ToolbarItems>
 
 </Shell>
