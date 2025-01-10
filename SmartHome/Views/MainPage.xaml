@@ -10,8 +10,27 @@
         <ToolbarItem Text="Add Room" Command="{Binding AddRoomCommand}" />
     </ContentPage.ToolbarItems>
 
-    <Grid BackgroundColor="#5D8AA8" Padding="10,20">
-        <StackLayout HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
+    <Grid BackgroundColor="#5D8AA8" Padding="2,20">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0" RowDefinitions="*,*" ColumnDefinitions="*,*" Padding="4,20" ColumnSpacing="10">
+            <Button Text="All On"
+                    BackgroundColor="#003262"
+                    Grid.Column="0"
+                    Command="{Binding TurnOnAllRoomsCommand}"
+                    HorizontalOptions="FillAndExpand" />
+            <Button Text="All Off"
+                    BackgroundColor="#003262"
+                    Grid.Column="1"
+                    Command="{Binding TurnOffAllRoomsCommand}"
+                    HorizontalOptions="FillAndExpand" />
+        </Grid>
+
+        <StackLayout Grid.Row="1" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
             <Label Text="Welcome to SmartHome!"
                    TextColor="White"
                    VerticalOptions="CenterAndExpand"

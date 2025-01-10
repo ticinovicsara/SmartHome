@@ -18,10 +18,15 @@ namespace SmartHome.ViewModels
             {
                 rooms = value;
                 OnPropertyChanged();
+                CheckWelcomeVisibility();
             }
         }
+        private void CheckWelcomeVisibility()
+        {
+            IsWelcomeVisible = Rooms.Count == 0;
+        }
 
-        private bool isWelcomeVisible;
+        private bool isWelcomeVisible = true;
         public bool IsWelcomeVisible
         {
             get => isWelcomeVisible;
@@ -37,12 +42,16 @@ namespace SmartHome.ViewModels
 
         public ICommand AddRoomCommand { get; }
         public ICommand ToggleLightCommand { get; }
+        public ICommand TurnOnAllRoomsCommand { get; }
+        public ICommand TurnOffAllRoomsCommand { get; }
 
         public RoomViewModel()
         {
             Rooms = new ObservableCollection<Room>();
             AddRoomCommand = new Command(AddRoom);
             ToggleLightCommand = new Command<Room>(ToggleLight);
+            TurnOnAllRoomsCommand = new Command(TurnOnAllRooms);
+            TurnOffAllRoomsCommand = new Command(TurnOffAllRooms);
         }
 
         private async void AddRoom()
@@ -52,6 +61,7 @@ namespace SmartHome.ViewModels
             if (!string.IsNullOrWhiteSpace(roomName))
             {
                 Rooms.Add(new Room(roomName));
+                CheckWelcomeVisibility();
             }
             else
             {
@@ -66,6 +76,24 @@ namespace SmartHome.ViewModels
                 room.IsLightOn = !room.IsLightOn;
             }
         }
+        private void TurnOnAllRooms()
+        {
+            foreach (var room in Rooms)
+            {
+                room.IsLightOn = true;
+            }
+            OnPropertyChanged(nameof(Rooms));
+        }
+
+        private void TurnOffAllRooms()
+        {
+            foreach (var room in Rooms)
+            {
+                room.IsLightOn = false;
+            }
+            OnPropertyChanged(nameof(Rooms));
+        }
+
 
         public virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
