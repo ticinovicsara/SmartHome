@@ -20,11 +20,13 @@
         <Grid Grid.Row="0" RowDefinitions="*,*" ColumnDefinitions="*,*" Padding="4,20" ColumnSpacing="10">
             <Button Text="All On"
                     BackgroundColor="#003262"
+                    TextColor="White"
                     Grid.Column="0"
                     Command="{Binding TurnOnAllRoomsCommand}"
                     HorizontalOptions="FillAndExpand" />
             <Button Text="All Off"
                     BackgroundColor="#003262"
+                    TextColor="White"
                     Grid.Column="1"
                     Command="{Binding TurnOffAllRoomsCommand}"
                     HorizontalOptions="FillAndExpand" />
